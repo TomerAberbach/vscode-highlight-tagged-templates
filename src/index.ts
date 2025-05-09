@@ -8,7 +8,7 @@ import {
 } from './generate-grammars.ts'
 
 const writeJson = async (path: string, json: unknown): Promise<void> =>
-  fs.writeFile(path, JSON.stringify(json, null, 2))
+  fs.writeFile(path, `${JSON.stringify(json, null, 2)}\n`)
 
 await fs.mkdir(`dist`, { recursive: true })
 await Promise.all([

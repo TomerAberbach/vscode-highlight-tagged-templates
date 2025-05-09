@@ -17,11 +17,15 @@
 
 ## Install
 
-TODO
+Search for `vscode-highlight-tagged-templates` in the VS Code Extensions panel
+or install it from the
+[VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=TomerAberbach.vscode-highlight-tagged-templates).
 
 ## Usage
 
-TODO
+Use tagged template literals corresponding to the
+[supported languages](https://github.com/TomerAberbach/vscode-highlight-tagged-templates/blob/main/src/languages.ts)
+and enjoy the syntax highlighting!
 
 ## Contributing
 
