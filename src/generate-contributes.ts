@@ -7,18 +7,18 @@ import {
 } from './generate-grammars.ts'
 import { LANGUAGES } from './languages.ts'
 
-const generateContributes = () => ({
+const generateContributes = (): Record<string, unknown> => ({
   grammars: [
     {
       injectTo: [
-        'source.js',
-        'source.js.jsx',
-        'source.jsx',
-        'source.ts',
-        'source.tsx',
-        'text.html.basic',
-        'text.html.derivative',
-        'text.html.markdown',
+        `source.js`,
+        `source.js.jsx`,
+        `source.jsx`,
+        `source.ts`,
+        `source.tsx`,
+        `text.html.basic`,
+        `text.html.derivative`,
+        `text.html.markdown`,
       ],
       scopeName: BASIC_GRAMMAR_SCOPE_NAME,
       path: BASIC_GRAMMAR_PATH,
@@ -30,19 +30,19 @@ const generateContributes = () => ({
     },
     {
       injectTo: [
-        'source.js',
-        'source.js.jsx',
-        'source.jsx',
-        'source.ts',
-        'source.tsx',
-        'text.html.basic',
-        'text.html.derivative',
-        'text.html.markdown',
+        `source.js`,
+        `source.js.jsx`,
+        `source.jsx`,
+        `source.ts`,
+        `source.tsx`,
+        `text.html.basic`,
+        `text.html.derivative`,
+        `text.html.markdown`,
       ],
       scopeName: REINJECT_GRAMMAR_SCOPE_NAME,
       path: REINJECT_GRAMMAR_PATH,
       embeddedLanguages: {
-        'meta.template.expression.ts': 'typescript',
+        'meta.template.expression.ts': `typescript`,
       },
     },
   ],

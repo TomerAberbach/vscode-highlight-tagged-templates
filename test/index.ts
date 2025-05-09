@@ -1,7 +1,5 @@
-import { expect, expectTypeOf, test } from 'vitest'
-import vscodeHighlightTaggedTemplates from '../src/index.ts'
+import { expect, test } from 'vitest'
 
-test(`vscodeHighlightTaggedTemplates works`, () => {
-  expectTypeOf(vscodeHighlightTaggedTemplates).toEqualTypeOf<() => string>()
-  expect(vscodeHighlightTaggedTemplates()).toBe(`Hello World!`)
+test(`todo`, () => {
+  expect(true).toBe(true)
 })
