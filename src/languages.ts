@@ -1,74 +1,91 @@
+import shellGrammar from 'tm-grammars/grammars/shellscript.json' with { type: 'json' }
+import cssGrammar from 'tm-grammars/grammars/css.json' with { type: 'json' }
+import csharpGrammar from 'tm-grammars/grammars/csharp.json' with { type: 'json' }
+import goGrammar from 'tm-grammars/grammars/go.json' with { type: 'json' }
+import javaGrammar from 'tm-grammars/grammars/java.json' with { type: 'json' }
+import javascriptGrammar from 'tm-grammars/grammars/javascript.json' with { type: 'json' }
+import jsonGrammar from 'tm-grammars/grammars/json.json' with { type: 'json' }
+import kotlinGrammar from 'tm-grammars/grammars/kotlin.json' with { type: 'json' }
+import phpGrammar from 'tm-grammars/grammars/php.json' with { type: 'json' }
+import pythonGrammar from 'tm-grammars/grammars/python.json' with { type: 'json' }
+import rubyGrammar from 'tm-grammars/grammars/ruby.json' with { type: 'json' }
+import hclGrammar from 'tm-grammars/grammars/hcl.json' with { type: 'json' }
+import htmlGrammar from 'tm-grammars/grammars/html.json' with { type: 'json' }
+import terraformGrammar from 'tm-grammars/grammars/terraform.json' with { type: 'json' }
+import typescriptGrammar from 'tm-grammars/grammars/typescript.json' with { type: 'json' }
+import yamlGrammar from 'tm-grammars/grammars/yaml.json' with { type: 'json' }
+
 export type Language = Readonly<{
   name: string
   identifiers: ReadonlySet<string>
-  sources: ReadonlySet<string>
+  grammars: unknown[]
 }>
 
 export const LANGUAGES: readonly Language[] = [
   {
     name: `shell`,
     identifiers: new Set([`bash`, `sh`, `shell`]),
-    sources: new Set([`source.shell`]),
+    grammars: [shellGrammar],
   },
   {
     name: `css`,
     identifiers: new Set([`css`]),
-    sources: new Set([`source.css`]),
+    grammars: [cssGrammar],
   },
   {
     name: `csharp`,
     identifiers: new Set([`cs`, `csharp`]),
-    sources: new Set([`source.cs`]),
+    grammars: [csharpGrammar],
   },
-  { name: `go`, identifiers: new Set([`go`]), sources: new Set([`source.go`]) },
+  { name: `go`, identifiers: new Set([`go`]), grammars: [goGrammar] },
   {
     name: `java`,
     identifiers: new Set([`java`]),
-    sources: new Set([`source.java`]),
+    grammars: [javaGrammar],
   },
   {
     name: `javascript`,
     identifiers: new Set([`js`, `jsx`, `javascript`]),
-    sources: new Set([`source.js`]),
+    grammars: [javascriptGrammar],
   },
   {
     name: `json`,
     identifiers: new Set([`json`]),
-    sources: new Set([`source.json`]),
+    grammars: [jsonGrammar],
   },
   {
     name: `kotlin`,
     identifiers: new Set([`kotlin`, `kt`]),
-    sources: new Set([`source.kotlin`]),
+    grammars: [kotlinGrammar],
   },
   {
     name: `php`,
     identifiers: new Set([`php`]),
-    sources: new Set([`text.html.basic`, `source.php`]),
+    grammars: [phpGrammar, htmlGrammar],
   },
   {
     name: `python`,
     identifiers: new Set([`py`, `python`]),
-    sources: new Set([`source.python`]),
+    grammars: [pythonGrammar],
   },
   {
     name: `ruby`,
     identifiers: new Set([`rb`, `ruby`]),
-    sources: new Set([`source.ruby`]),
+    grammars: [rubyGrammar],
   },
   {
     name: `terraform`,
     identifiers: new Set([`tf`, `terraform`]),
-    sources: new Set([`source.hcl`, `source.hcl.terraform`]),
+    grammars: [hclGrammar, terraformGrammar],
   },
   {
     name: `typescript`,
     identifiers: new Set([`ts`, `tsx`, `typescript`]),
-    sources: new Set([`source.ts`]),
+    grammars: [typescriptGrammar],
   },
   {
     name: `yaml`,
     identifiers: new Set([`yaml`, `yml`]),
-    sources: new Set([`source.yaml`]),
+    grammars: [yamlGrammar],
   },
 ]
