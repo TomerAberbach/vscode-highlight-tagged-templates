@@ -24,11 +24,6 @@ export type Language = Readonly<{
 }>
 
 export const LANGUAGES: readonly Language[] = [
-  {
-    name: `shell`,
-    identifiers: new Set([`bash`, `sh`, `shell`]),
-    grammars: [shellGrammar],
-  },
   { name: `css`, identifiers: new Set([`css`]), grammars: [cssGrammar] },
   {
     name: `csharp`,
@@ -51,11 +46,6 @@ export const LANGUAGES: readonly Language[] = [
     grammars: [kotlinGrammar],
   },
   {
-    name: `markdown`,
-    identifiers: new Set([`md`, `markdown`]),
-    grammars: [markdownGrammar],
-  },
-  {
     name: `php`,
     identifiers: new Set([`php`]),
     grammars: [phpGrammar, htmlGrammar],
@@ -71,6 +61,11 @@ export const LANGUAGES: readonly Language[] = [
     grammars: [rubyGrammar],
   },
   {
+    name: `shell`,
+    identifiers: new Set([`bash`, `sh`, `shell`]),
+    grammars: [shellGrammar],
+  },
+  {
     name: `terraform`,
     identifiers: new Set([`tf`, `terraform`]),
     grammars: [hclGrammar, terraformGrammar],
@@ -84,5 +79,12 @@ export const LANGUAGES: readonly Language[] = [
     name: `yaml`,
     identifiers: new Set([`yaml`, `yml`]),
     grammars: [yamlGrammar],
+  },
+  // For some reason the Markdown grammar has to be included last. Otherwise, it
+  // wrecks the highlighting of other languages.
+  {
+    name: `markdown`,
+    identifiers: new Set([`md`, `markdown`]),
+    grammars: [markdownGrammar],
   },
 ]

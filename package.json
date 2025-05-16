@@ -84,7 +84,6 @@
         "scopeName": "inline.tagged-template-languages",
         "path": "./dist/basic-grammar.json",
         "embeddedLanguages": {
-          "meta.embedded.block.shell": "shell",
           "meta.embedded.block.css": "css",
           "meta.embedded.block.csharp": "csharp",
           "meta.embedded.block.fish": "fish",
@@ -94,13 +93,14 @@
           "meta.embedded.block.javascript": "javascript",
           "meta.embedded.block.json": "json",
           "meta.embedded.block.kotlin": "kotlin",
-          "meta.embedded.block.markdown": "markdown",
           "meta.embedded.block.php": "php",
           "meta.embedded.block.python": "python",
           "meta.embedded.block.ruby": "ruby",
+          "meta.embedded.block.shell": "shell",
           "meta.embedded.block.terraform": "terraform",
           "meta.embedded.block.typescript": "typescript",
-          "meta.embedded.block.yaml": "yaml"
+          "meta.embedded.block.yaml": "yaml",
+          "meta.embedded.block.markdown": "markdown"
         }
       },
       {
