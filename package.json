@@ -1,7 +1,7 @@
 {
   "name": "vscode-highlight-tagged-templates",
   "displayName": "Highlight Tagged Templates",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": {
     "name": "Tomer Aberbach",
     "email": "tomer@aberba.ch",
