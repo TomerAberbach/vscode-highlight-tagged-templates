@@ -32,26 +32,7 @@ export const generateBasicGrammar = (): Record<string, unknown> => ({
   ),
   patterns: LANGUAGES.map(generatePattern),
   scopeName: BASIC_GRAMMAR_SCOPE_NAME,
-  repository: Object.assign(
-    {},
-    ...LANGUAGES.flatMap(language =>
-      language.grammars.flatMap((grammar, index) => {
-        grammar = bailOnBacktick(
-          qualifyLocalIncludes(grammar, `${language.name}-${index}`),
-        )
-        let repository: unknown
-        if (
-          typeof grammar === `object` &&
-          grammar !== null &&
-          `repository` in grammar
-        ) {
-          ;({ repository } = grammar)
-          delete grammar.repository
-        }
-        return [{ [`${language.name}-${index}`]: grammar }, repository]
-      }),
-    ),
-  ),
+  repository: generateRepository(),
 })
 export const BASIC_GRAMMAR_SCOPE_NAME = `inline.tagged-template-languages`
 export const BASIC_GRAMMAR_PATH = `./dist/basic-grammar.json`
@@ -84,6 +65,29 @@ const generatePattern = (language: Language) => ({
     include: `#${language.name}-${index}`,
   })),
 })
+
+const generateRepository = (): unknown =>
+  Object.assign(
+    {},
+    ...LANGUAGES.flatMap(language =>
+      language.grammars.flatMap((grammar, index) => {
+        const name = `${language.name}-${index}`
+        grammar = bailOnBacktick(qualifyLocalIncludes(grammar, name))
+
+        let repository: unknown
+        if (
+          typeof grammar === `object` &&
+          grammar !== null &&
+          `repository` in grammar
+        ) {
+          ;({ repository } = grammar)
+          delete grammar.repository
+        }
+
+        return [{ [name]: grammar }, repository]
+      }),
+    ),
+  )
 
 /**
  * Prefixes all local includes with the given qualifier.

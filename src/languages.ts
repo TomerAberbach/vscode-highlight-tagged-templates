@@ -1,3 +1,5 @@
+import fishGrammar from 'tm-grammars/grammars/fish.json' with { type: 'json' }
+import markdownGrammar from 'tm-grammars/grammars/markdown.json' with { type: 'json' }
 import shellGrammar from 'tm-grammars/grammars/shellscript.json' with { type: 'json' }
 import cssGrammar from 'tm-grammars/grammars/css.json' with { type: 'json' }
 import csharpGrammar from 'tm-grammars/grammars/csharp.json' with { type: 'json' }
@@ -27,36 +29,31 @@ export const LANGUAGES: readonly Language[] = [
     identifiers: new Set([`bash`, `sh`, `shell`]),
     grammars: [shellGrammar],
   },
-  {
-    name: `css`,
-    identifiers: new Set([`css`]),
-    grammars: [cssGrammar],
-  },
+  { name: `css`, identifiers: new Set([`css`]), grammars: [cssGrammar] },
   {
     name: `csharp`,
     identifiers: new Set([`cs`, `csharp`]),
     grammars: [csharpGrammar],
   },
+  { name: `fish`, identifiers: new Set([`fish`]), grammars: [fishGrammar] },
   { name: `go`, identifiers: new Set([`go`]), grammars: [goGrammar] },
-  {
-    name: `java`,
-    identifiers: new Set([`java`]),
-    grammars: [javaGrammar],
-  },
+  { name: `html`, identifiers: new Set([`html`]), grammars: [htmlGrammar] },
+  { name: `java`, identifiers: new Set([`java`]), grammars: [javaGrammar] },
   {
     name: `javascript`,
     identifiers: new Set([`js`, `jsx`, `javascript`]),
     grammars: [javascriptGrammar],
   },
-  {
-    name: `json`,
-    identifiers: new Set([`json`]),
-    grammars: [jsonGrammar],
-  },
+  { name: `json`, identifiers: new Set([`json`]), grammars: [jsonGrammar] },
   {
     name: `kotlin`,
     identifiers: new Set([`kotlin`, `kt`]),
     grammars: [kotlinGrammar],
+  },
+  {
+    name: `markdown`,
+    identifiers: new Set([`md`, `markdown`]),
+    grammars: [markdownGrammar],
   },
   {
     name: `php`,
