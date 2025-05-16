@@ -1,5 +1,5 @@
+/* eslint-disable typescript/ban-ts-comment, typescript/no-unused-expressions, typescript/no-unsafe-call */
 // @ts-nocheck
-// eslint-disable
 
 css`
   a {
