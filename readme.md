@@ -27,7 +27,7 @@ Use tagged template literals corresponding to the
 [supported languages](https://github.com/TomerAberbach/vscode-highlight-tagged-templates/blob/main/src/languages.ts)
 and enjoy the syntax highlighting!
 
-![](./example.mov)
+https://github.com/user-attachments/assets/5bfd14fd-f001-48ca-9683-a728d1c7b84d
 
 ## Contributing
 
