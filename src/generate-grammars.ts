@@ -1,7 +1,8 @@
 import escapeStringRegexp from 'escape-string-regexp'
-import { join, map, pipe } from 'lfi'
+import { entries, flatMap, index, join, map, pipe, reduce, toObject } from 'lfi'
 import { LANGUAGES } from './languages.ts'
 import type { Language } from './languages.ts'
+import { transformPatterns } from './helpers.ts'
 
 export const generateReinjectGrammar = (): Record<string, unknown> => ({
   fileTypes: [],
@@ -69,23 +70,32 @@ const generatePattern = (language: Language) => ({
 const generateRepository = (): unknown =>
   Object.assign(
     {},
-    ...LANGUAGES.flatMap(language =>
-      language.grammars.flatMap((grammar, index) => {
-        const name = `${language.name}-${index}`
-        grammar = bailOnBacktick(qualifyLocalIncludes(grammar, name))
+    ...pipe(
+      LANGUAGES,
+      flatMap(language =>
+        pipe(
+          language.grammars,
+          index,
+          flatMap(([index, grammar]) => {
+            const name = `${language.name}-${index}`
+            grammar = bailOnBacktick(
+              allowEscapedBacktick(qualifyLocalIncludes(grammar, name)),
+            )
 
-        let repository: unknown
-        if (
-          typeof grammar === `object` &&
-          grammar !== null &&
-          `repository` in grammar
-        ) {
-          ;({ repository } = grammar)
-          delete grammar.repository
-        }
+            let repository: unknown
+            if (
+              typeof grammar === `object` &&
+              grammar !== null &&
+              `repository` in grammar
+            ) {
+              ;({ repository } = grammar)
+              delete grammar.repository
+            }
 
-        return [{ [name]: grammar }, repository]
-      }),
+            return [{ [name]: grammar }, repository]
+          }),
+        ),
+      ),
     ),
   )
 
@@ -106,11 +116,10 @@ const qualifyLocalIncludes = (grammar: unknown, qualifier: string): unknown => {
     return grammar.map(value => qualifyLocalIncludes(value, qualifier))
   }
 
-  const qualifiedGrammar = Object.fromEntries(
-    Object.entries(grammar).map(([key, value]) => [
-      key,
-      qualifyLocalIncludes(value, qualifier),
-    ]),
+  const qualifiedGrammar = pipe(
+    entries(grammar),
+    map(([key, value]) => [key, qualifyLocalIncludes(value, qualifier)]),
+    reduce(toObject()),
   )
 
   if (
@@ -118,11 +127,10 @@ const qualifyLocalIncludes = (grammar: unknown, qualifier: string): unknown => {
     typeof qualifiedGrammar.repository === `object` &&
     qualifiedGrammar.repository !== null
   ) {
-    qualifiedGrammar.repository = Object.fromEntries(
-      Object.entries(qualifiedGrammar.repository).map(([key, value]) => [
-        `${qualifier}-${key}`,
-        value,
-      ]),
+    qualifiedGrammar.repository = pipe(
+      entries(qualifiedGrammar.repository as Record<string, unknown>),
+      map(([key, value]) => [`${qualifier}-${key}`, value]),
+      reduce(toObject()),
     )
   }
 
@@ -141,43 +149,25 @@ const qualifyLocalIncludes = (grammar: unknown, qualifier: string): unknown => {
 }
 
 /**
+ * Allow the grammar to use escaped backticks instead of just backticks for any
+ * patterns that use backticks. The latter cannot be used without escaping
+ * inside a tagged template literal.
+ */
+const allowEscapedBacktick = (grammar: unknown) =>
+  transformPatterns(grammar, pattern => pattern.replaceAll(`\``, `(?:\\\\\`)`))
+
+/**
  * Force the grammar to end on backticks so that it doesn't spill out of the
  * template literal for unclosed language constructs.
  */
-const bailOnBacktick = (grammar: unknown): unknown => {
-  if (typeof grammar !== `object` || grammar === null) {
-    return grammar
-  }
-
-  const grammarCopy = { ...grammar } as Record<string, unknown>
-
-  if (`end` in grammarCopy && typeof grammarCopy.end === `string`) {
-    grammarCopy.end = `${grammarCopy.end}|(?<!\\\\)(?=\`)`
-  }
-
-  if (`patterns` in grammarCopy && Array.isArray(grammarCopy.patterns)) {
-    grammarCopy.patterns = grammarCopy.patterns.map(bailOnBacktick)
-  }
-
-  for (const key of [
-    `repository`,
-    `captures`,
-    `beginCaptures`,
-    `endCaptures`,
-  ]) {
-    if (
-      key in grammarCopy &&
-      typeof grammarCopy[key] === `object` &&
-      grammarCopy[key] !== null
-    ) {
-      grammarCopy[key] = Object.fromEntries(
-        Object.entries(grammarCopy[key]).map(([key, value]) => [
-          key,
-          bailOnBacktick(value),
-        ]),
-      )
+const bailOnBacktick = (grammar: unknown): unknown =>
+  transformPatterns(grammar, (pattern, key) => {
+    switch (key) {
+      case `match`:
+      case `begin`:
+      case `while`:
+        return `${pattern}(?!\`)`
+      case `end`:
+        return `${pattern}|(?<!\\\\)(?=\`)`
     }
-  }
-
-  return grammarCopy
-}
+  })

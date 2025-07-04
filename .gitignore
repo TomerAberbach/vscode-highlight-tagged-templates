@@ -4,3 +4,4 @@
 *.tsbuildinfo
 !.vscode
 *.vsix
+.vscode-test

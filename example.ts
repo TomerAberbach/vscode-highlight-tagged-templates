@@ -1,4 +1,4 @@
-/* eslint-disable typescript/ban-ts-comment, typescript/no-unused-expressions, typescript/no-unsafe-call */
+/* eslint-disable typescript/ban-ts-comment, typescript/no-unused-vars, typescript/no-unused-expressions, typescript/no-unsafe-call */
 // @ts-nocheck
 
 css`
@@ -70,6 +70,53 @@ kotlin`
       println("Hello World!")
   }
 `
+
+const indented = [
+  markdown`
+    # Hello World
+
+    Paragraph
+
+    ## Heading 2
+
+    ### Heading 3
+
+    #### Heading 4
+
+    ##### Heading 5
+
+    ###### Heading 6
+
+    _italic_ **bold**
+
+    \`inline code\`
+
+    - Bullet 1
+    - Bullet 2
+
+    1. Number 1
+    2. Number 2
+    3. Number 3
+
+    ~~~ts
+    const x = 2
+    ~~~
+
+    ${''}
+    \`\`\`ts
+    console.log('hi!')
+    \`\`\`
+
+    > quote
+
+    ---
+
+    [title](https://www.example.com)
+
+    ![alt text](image.jpg)
+  `,
+]
+console.log(`Hello World!`)
 
 markdown`
   # Hello World
