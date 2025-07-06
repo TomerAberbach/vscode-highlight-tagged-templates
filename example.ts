@@ -102,7 +102,7 @@ const indented = [
     const x = 2
     ~~~
 
-    ${''}
+    ${``}
     \`\`\`ts
     console.log('hi!')
     \`\`\`
