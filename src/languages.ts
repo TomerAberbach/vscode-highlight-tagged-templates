@@ -101,11 +101,12 @@ export const LANGUAGES: readonly Language[] = [
             // Don't require a maximum number of spaces before constructs to
             // trigger them because tagged template literals may be indented any
             // amount.
-            .replaceAll(/ {0,\d+}/g, ` *`)
+            .replaceAll(/ \{0,\d+\}/gu, ` *`)
             // Don't trigger any constructs that require a specific number of
             // more than zero spaces before them because tagged template
             // literals may be indented any amount.
-            .replaceAll(/ {\d+,\d*}|\\t(?:{\d+,\d*})?/g, ` {1000,}`),
+            // eslint-disable-next-line security/detect-unsafe-regex
+            .replaceAll(/ \{\d+,\d*\}|\\t(?:\{\d+,\d*\})?/gu, ` {1000,}`),
       ),
     ],
   },
