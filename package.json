@@ -27,6 +27,9 @@
   "bugs": {
     "url": "https://github.com/TomerAberbach/vscode-highlight-tagged-templates/issues"
   },
+  "funding": {
+    "url": "https://github.com/sponsors/TomerAberbach"
+  },
   "license": "MIT",
   "files": [
     "package.json",
