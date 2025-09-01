@@ -41,28 +41,28 @@
     "vscode": "^1.22.0"
   },
   "scripts": {
-    "format": "tomer format",
-    "lint": "tomer lint",
-    "typecheck": "tomer typecheck",
+    "format": "prettier --cache --write .",
+    "lint": "eslint --cache --cache-location node_modules/.cache/eslint/ --fix .",
+    "typecheck": "tsc --noEmit",
     "build": "node --experimental-strip-types ./src/index.ts",
     "package": "vsce package --no-dependencies",
     "publish": "vsce publish --no-dependencies",
-    "clean": "tomer clean dist",
     "vscode-publish": "run-s build package publish"
   },
-  "prettier": "tomer/prettier",
+  "prettier": "@tomer/prettier-config",
   "packageManager": "pnpm@9.15.0+sha512.76e2379760a4328ec4415815bcd6628dee727af3779aaa4c914e3944156c4299921a89f976381ee107d41f12cfa4b66681ca9c718f0668fa0831ed4c6d8ba56c",
   "devDependencies": {
-    "@types/node": "^24.0.10",
-    "@vscode/vsce": "^3.3.2",
+    "@tomer/eslint-config": "^4.1.1",
+    "@tomer/prettier-config": "^4.0.0",
+    "@types/node": "^24.3.0",
+    "@vscode/vsce": "^3.6.0",
     "escape-string-regexp": "^5.0.0",
-    "eslint": "^9.26.0",
-    "lfi": "^3.8.0",
+    "eslint": "^9.34.0",
+    "lfi": "^4.1.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^3.5.3",
-    "tm-grammars": "^1.23.20",
-    "tomer": "^7.0.1",
-    "typescript": "^5.8.3"
+    "prettier": "^3.6.2",
+    "tm-grammars": "^1.24.7",
+    "typescript": "^5.9.2"
   },
   "contributes": {
     "grammars": [
